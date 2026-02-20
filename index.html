@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Nazim · Stochastic PINNs · Computational Scientist</title>
+    <!-- Font Awesome 6 (free) - correct icon kit -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- MathJax for elegant equations -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- Three.js for 3D animated scientific background -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: #0a1020;
+            color: #ecf3ff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 3D canvas background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            background: transparent;
+        }
+
+        /* glassmorphism nav */
+        nav {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(8, 16, 32, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid #314d7a;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #ffb86b, #ffd966);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: #d0e0ff;
+            text-decoration: none;
+            margin-left: 2.2rem;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #ffaa33;
+            border-bottom-color: #ffaa33;
+        }
+
+        /* hero - restored to original simple style */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 8%;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-suptitle {
+            color: #7aa5f0;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-name {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.7rem;
+            color: #b0cdff;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #b0c2da;
+            max-width: 700px;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: #ffb347;
+            color: #0a0f1e;
+        }
+
+        .btn-primary:hover {
+            background: #ffa01e;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ffb34780;
+        }
+
+        .btn-outline {
+            border: 1px solid #7aa5f0;
+            color: #e0ecff;
+        }
+
+        .btn-outline:hover {
+            background: #1f314f;
+            border-color: #ffb347;
+        }
+
+        /* contact info line */
+        .contact-info {
+            margin-top: 2rem;
+            color: #92abeb;
+            font-size: 1.1rem;
+        }
+        .contact-info i {
+            color: #ffaa33;
+            margin-right: 0.5rem;
+        }
+
+        /* section styling */
+        section {
+            padding: 5rem 8%;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            border-left: 8px solid #ffaa33;
+            padding-left: 1.5rem;
+        }
+
+        .section-title span {
+            color: #ffaa33;
+        }
+
+        /* research cards with animation */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: rgba(18, 30, 52, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #3f5285;
+            border-radius: 32px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.7);
+            cursor: pointer;
+            animation: float 5s infinite ease-in-out;
+        }
+        .glass-card:nth-child(2) { animation-delay: 0.3s; }
+        .glass-card:nth-child(3) { animation-delay: 0.6s; }
+        .glass-card:nth-child(4) { animation-delay: 0.9s; }
+        .glass-card:nth-child(5) { animation-delay: 1.2s; }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0); }
+        }
+
+        .glass-card:hover {
+            border-color: #ffaa33;
+            transform: scale(1.02) translateY(-8px);
+            background: rgba(30, 45, 75, 0.9);
+            box-shadow: 0 30px 40px -5px #ffaa3320;
+        }
+
+        .glass-card i {
+            font-size: 2.5rem;
+            color: #ffaa33;
+            margin-bottom: 1.2rem;
+        }
+
+        .glass-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .pub-meta {
+            color: #b2c9ff;
+            font-size: 0.9rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .tag {
+            background: #1e345a;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            border: 1px solid #5470a5;
+        }
+
+        /* gallery */
+        .gallery-pro {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin: 2.5rem 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #3a5280;
+            transition: 0.4s ease;
+            box-shadow: 0 20px 30px -12px black;
+        }
+        .gallery-item:hover {
+            border-color: #ffaa33;
+            transform: scale(1.02) translateY(-5px);
+            filter: brightness(1.1);
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0; right: 0;
+            background: linear-gradient(to top, #000000ee, transparent);
+            color: white;
+            padding: 1.2rem 1rem 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 5px black;
+        }
+
+        /* references grid */
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .ref-card {
+            background: rgba(18, 32, 58, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid #5a74a8;
+            border-radius: 28px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            animation: pulseGlow 4s infinite;
+        }
+        .ref-card:nth-child(2) { animation-delay: 0.5s; }
+        .ref-card:nth-child(3) { animation-delay: 1s; }
+        .ref-card:nth-child(4) { animation-delay: 1.5s; }
+        .ref-card:nth-child(5) { animation-delay: 2s; }
+        .ref-card:nth-child(6) { animation-delay: 2.5s; }
+
+        @keyframes pulseGlow {
+            0% { border-color: #5a74a8; box-shadow: 0 0 10px #3f5b96; }
+            50% { border-color: #ffaa33; box-shadow: 0 0 20px #ffaa3380; }
+            100% { border-color: #5a74a8; box-shadow: 0 0 10px #3f5b96; }
+        }
+
+        .ref-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: #1d3157;
+            border-color: #ffaa33;
+        }
+        .ref-card i {
+            font-size: 2.8rem;
+            color: #ffaa33;
+            margin-bottom: 1rem;
+        }
+        .ref-card h4 {
+            font-size: 1.7rem;
+            margin-bottom: 0.3rem;
+            color: white;
+        }
+        .ref-card p {
+            color: #c4d5ff;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .ref-card .fa-envelope {
+            font-size: 1rem;
+            margin-right: 0.3rem;
+            color: #ffaa33;
+        }
+
+        /* ideas chips */
+        .ideas-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+        .idea-chip {
+            background: #14233c;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border-left: 5px solid #ffaa33;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .idea-chip:hover {
+            background: #1e345a;
+            transform: scale(1.02);
+        }
+
+        /* journey section */
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .journey-card {
+            background: rgba(18, 32, 58, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid #5a74a8;
+            border-radius: 28px;
+            padding: 2rem 1.5rem;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .journey-card:hover {
+            border-color: #ffaa33;
+            transform: translateY(-5px);
+            background: #1d3157;
+        }
+        .journey-card i {
+            font-size: 2.8rem;
+            color: #ffaa33;
+            margin-bottom: 1rem;
+        }
+        .journey-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .journey-card p {
+            color: #c4d5ff;
+            line-height: 1.6;
+        }
+
+        /* NEW: DeepXDE Library Explorer - scrollable cards */
+        .library-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 2rem 0.5rem;
+            margin: 2rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: #ffaa33 #1e345a;
+            -webkit-overflow-scrolling: touch;
+        }
+        .library-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        .library-scroll::-webkit-scrollbar-track {
+            background: #1e345a;
+            border-radius: 10px;
+        }
+        .library-scroll::-webkit-scrollbar-thumb {
+            background: #ffaa33;
+            border-radius: 10px;
+        }
+        .library-card {
+            min-width: 320px;
+            max-width: 350px;
+            background: rgba(18, 32, 58, 0.95);
+            backdrop-filter: blur(5px);
+            border: 2px solid #5a74a8;
+            border-radius: 32px;
+            padding: 2rem 1.5rem;
+            transition: 0.3s;
+            box-shadow: 0 20px 30px -10px black;
+            flex-shrink: 0;
+        }
+        .library-card:hover {
+            border-color: #ffaa33;
+            transform: scale(1.02) translateY(-5px);
+            background: #1d3157;
+        }
+        .library-card i {
+            font-size: 2.5rem;
+            color: #ffaa33;
+            margin-bottom: 1rem;
+        }
+        .library-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffaa33;
+        }
+        .library-card p {
+            color: #d0e0ff;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        .library-card .badge {
+            display: inline-block;
+            background: #ffaa3320;
+            border: 1px solid #ffaa33;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* modal - updated for readable article style */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 22, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            padding: 4rem 8%;
+            overflow-y: auto;
+        }
+        .modal-content {
+            max-width: 1200px;
+            margin: auto;
+            background: rgba(18, 30, 52, 0.9);
+            padding: 3rem;
+            border-radius: 32px;
+            border: 1px solid #3f5285;
+            box-shadow: 0 30px 50px -15px rgba(0,0,0,0.8);
+        }
+        .close-modal {
+            position: fixed;
+            top: 30px; right: 50px;
+            font-size: 4rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-modal:hover { color: #ffaa33; }
+        .modal-article h1 {
+            color: #ffaa33;
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #ffaa3340;
+            padding-bottom: 1rem;
+        }
+        .modal-article h2 {
+            color: #ffb86b;
+            font-size: 2.2rem;
+            margin: 2rem 0 1rem;
+        }
+        .modal-article p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #d0e0ff;
+            margin-bottom: 1.5rem;
+        }
+        .modal-article ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #d0e0ff;
+            list-style: disc;
+            margin: 1rem 0 2rem 2rem;
+        }
+        .modal-article .equation {
+            background: #0b1428;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            font-size: 1.6rem;
+            text-align: center;
+            border: 1px solid #ffaa3340;
+        }
+        .video-demo {
+            width: 100%;
+            background: #0b1428;
+            border-radius: 40px;
+            margin: 2rem 0;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #3f5b96;
+        }
+        .video-demo img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 2px solid #ffaa33;
+        }
+
+        /* Animations Gallery in Modal - article style */
+        .animations-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .animation-item {
+            background: #10203b;
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #3f5b96;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .animation-item:hover {
+            border-color: #ffaa33;
+            transform: translateY(-5px);
+        }
+        .animation-item img {
+            width: 100%;
+            border-radius: 16px;
+            max-height: 250px;
+            object-fit: cover;
+        }
+        .animation-item h4 {
+            color: #ffb86b;
+            font-size: 1.4rem;
+            margin: 1rem 0 0.5rem;
+        }
+        .animation-item p {
+            color: #b2c9ff;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Image Popup */
+        #imagePopup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        #imagePopup img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255,170,51,0.3);
+        }
+        #popupClose {
+            position: absolute;
+            top: 30px; right: 50px;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 5%;
+            border-top: 1px solid #263b60;
+        }
+
+        @media (max-width: 900px) {
+            .hero-name { font-size: 3.5rem; }
+            .hero-tagline { font-size: 1.3rem; }
+            .gallery-pro { grid-template-columns: repeat(2,1fr); }
+            .ref-grid { grid-template-columns: 1fr; }
+            .journey-grid { grid-template-columns: 1fr; }
+            .animations-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="three-canvas"></div>
+
+    <div class="content">
+        <nav>
+            <div class="logo">MUHAMMAD NAZIM</div>
+            <div class="nav-links">
+                <a href="#research">Research</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#journey">Journey</a>
+                <a href="#ref">References</a>
+                <a href="#future">Ideas</a>
+                <a href="#library">DeepXDE</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO - with corrected spelling (PINN, network) -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-suptitle">IIUI · STOCHASTIC MODELING & PINN</div>
+                <h1 class="hero-name">Muhammad Nazim</h1>
+                <div class="hero-tagline">Stochastic PDEs · Physics-Informed Neural Network · Python</div>
+                <p class="hero-desc">
+                    Master in Mathematics (2026) · 5+ papers under review. Expertise in uncertainty 
+                    quantification, stochastic heat transfer, two-phase flows, and PINN (TensorFlow, 
+                    PyTorch). I merge deep learning with numerical analysis to solve real-world fluid 
+                    dynamics problems.
+                </p>
+                
+                <div class="btn-group">
+                    <a href="#research" class="btn btn-primary"><i class="fas fa-flask"></i> Explore research</a>
+                    <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> PhD motivation</a>
+                </div>
+
+                <div class="contact-info">
+                    <i class="fas fa-map-pin"></i> IIUI, Islamabad · <i class="fas fa-phone"></i> +92 308 0743428 · <i class="fas fa-envelope"></i> muhammad.nazim.researcher@gmail.com
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEARCH SECTION -->
+        <section id="research">
+            <h2 class="section-title">Peer‑reviewed <span>& under review</span></h2>
+            <div class="card-grid" id="research-cards">
+                <div class="glass-card" onclick="openResearchModal('stochastic-heat')">
+                    <i class="fas fa-fire"></i>
+                    <h3>Stochastic Heat Transfer</h3>
+                    <div class="pub-meta">M. Nazim, M. Imran Khan, A. Zeeshan · Nonlinear science (revision)</div>
+                    <p>Uncertainty propagation in heat problems using PINN + Monte Carlo. 2x faster convergence.</p>
+                    <div class="tag-list"><span class="tag">PINN</span><span class="tag">stochastic PDE</span><span class="tag">Python</span></div>
+                    <span style="color:#ffaa33;">click for simulation →</span>
+                </div>
+                <div class="glass-card" onclick="openResearchModal('dusty-flow')">
+                    <i class="fas fa-wind"></i>
+                    <h3>Two‑Phase Dusty Flow</h3>
+                    <div class="pub-meta">Nazim, El Khider, Almakki · under review @ Adv. Theory Sim.</div>
+                    <p>PINN + ADAM optimizer for particle‑fluid systems. Experimental validation.</p>
+                    <div class="tag-list"><span class="tag">multiphase</span><span class="tag">ADAM</span><span class="tag">TensorFlow</span></div>
+                    <span style="color:#ffaa33;">video & math →</span>
+                </div>
+                <div class="glass-card" onclick="openResearchModal('inclined-cylinder')">
+                    <i class="fas fa-stream"></i>
+                    <h3>Mixed Convection over Inclined Cylinder</h3>
+                    <div class="pub-meta">M. Shoaib, M. Almakki, M. El Khider · under review</div>
+                    <p>S-PINN for Casson fluid with MHD and radiation. Uncertainty bands for velocity/temperature.</p>
+                    <div class="tag-list"><span class="tag">MHD</span><span class="tag">Casson fluid</span><span class="tag">S-PINN</span></div>
+                    <span style="color:#ffaa33;">animations →</span>
+                </div>
+                <div class="glass-card" onclick="openResearchModal('cylinder-flow')">
+                    <i class="fas fa-circle-notch"></i>
+                    <h3>Flow over Circular Cylinder (PINN)</h3>
+                    <div class="pub-meta">M. Imran Khan, M. Nazim, A. Zeeshan · under review @ EAAI</div>
+                    <p>Second‑order optimization (L‑BFGS) for stochastic fluid flow. Vortex shedding with uncertainty.</p>
+                    <div class="tag-list"><span class="tag">Navier‑Stokes</span><span class="tag">L‑BFGS</span><span class="tag">PyTorch</span></div>
+                    <span style="color:#ffaa33;">simulation →</span>
+                </div>
+                <div class="glass-card" onclick="openResearchModal('hybrid-framework')">
+                    <i class="fas fa-cubes"></i>
+                    <h3>Hybrid Stochastic‑Deterministic</h3>
+                    <div class="pub-meta">Nazim, Khan, Zeeshan · revision submitted</div>
+                    <p>Monte Carlo + Polynomial Chaos for relaxation systems. New UQ framework.</p>
+                    <div class="tag-list"><span class="tag">UQ</span><span class="tag">PCE</span><span class="tag">Python</span></div>
+                    <span style="color:#ffaa33;">view details →</span>
+                </div>
+                <div class="glass-card" onclick="openResearchModal('bioheat-pce')">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Non-Intrusive PCE for Bioheat Equation</h3>
+                    <div class="pub-meta">M. Imran Khan, M. Nazim · under review</div>
+                    <p>Stochastic perfusion in Pennes bioheat model using PCE/NISP. Gaussian/Lognormal distributions for tissue temperature UQ.</p>
+                    <div class="tag-list"><span class="tag">Bioheat</span><span class="tag">PCE</span><span class="tag">NISP</span></div>
+                    <span style="color:#ffaa33;">simulations →</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery">
+            <h2 class="section-title">Research <span>environment & simulations</span></h2>
+            <div class="gallery-pro">
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&auto=format');">
+                    <div class="overlay"><i class="fas fa-microscope"></i> GPU cluster · CUDA</div>
+                </div>
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=600&auto=format');">
+                    <div class="overlay"><i class="fas fa-wave-square"></i> PINN training (TensorFlow)</div>
+                </div>
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format');">
+                    <div class="overlay"><i class="fas fa-fire"></i> Stochastic heat simulation</div>
+                </div>
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format');">
+                    <div class="overlay"><i class="fas fa-atom"></i> Uncertainty quantification</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFESSIONAL JOURNEY SECTION -->
+        <section id="journey">
+            <h2 class="section-title">Professional <span>journey & collaborations</span></h2>
+            <div class="journey-grid">
+                <div class="journey-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Software Engineering Bridge</h3>
+                    <p>Work closely with CUDA engineers to accelerate PINN on GPU clusters. Co‑developing real‑time PDE solvers for aerodynamic and biomedical applications.</p>
+                </div>
+                <div class="journey-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Teaching & Mentoring</h3>
+                    <p>Teaching assistant for numerical analysis and scientific computing courses. Supervising undergraduate projects on PINN and stochastic simulations.</p>
+                </div>
+                <div class="journey-card">
+                    <i class="fas fa-globe-asia"></i>
+                    <h3>International Network</h3>
+                    <p>Active collaboration with researchers from IIUI, and international peers. Regular contributor to journal clubs on uncertainty quantification and machine learning.</p>
+                </div>
+                <div class="journey-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Open Source Contributions</h3>
+                    <p>Contributor to scientific Python libraries for PDE solving. Developed custom PINN modules for stochastic heat and fluid flow problems.</p>
+                </div>
+                <div class="journey-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>GPU Acceleration</h3>
+                    <p>Experience with CUDA and TensorRT for high‑performance computing. Optimized PINN training loops for 2x faster convergence on NVIDIA hardware.</p>
+                </div>
+                <div class="journey-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Peer Review Activity</h3>
+                    <p>Reviewer for international journals (under review). Provide constructive feedback on manuscripts related to PINN, fluid dynamics, and numerical methods.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: DeepXDE Library Explorer - scrollable cards -->
+        <section id="library">
+            <h2 class="section-title">DeepXDE <span>library explorer</span></h2>
+            <p style="margin-bottom: 1rem; color: #b0c2da; font-size: 1.2rem;">DeepXDE is a library for scientific machine learning and physics-informed learning. Scroll through the key algorithms and features →</p>
+            <div class="library-scroll">
+                <div class="library-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Physics-Informed Neural Network</h3>
+                    <p>Solve forward and inverse PDE problems using PINN. Supports complex geometries and boundary conditions.</p>
+                    <span class="badge">core algorithm</span>
+                </div>
+                <div class="library-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Surrogate Modeling</h3>
+                    <p>Build data-driven surrogates for expensive simulations. Integrates with TensorFlow and PyTorch backends.</p>
+                    <span class="badge">surrogate</span>
+                </div>
+                <div class="library-card">
+                    <i class="fas fa-random"></i>
+                    <h3>Uncertainty Quantification</h3>
+                    <p>Quantify epistemic and aleatoric uncertainty in PDE solutions using dropout and ensemble methods.</p>
+                    <span class="badge">UQ</span>
+                </div>
+                <div class="library-card">
+                    <i class="fas fa-wave-square"></i>
+                    <h3>Forward & Inverse Problems</h3>
+                    <p>Solve both forward (simulation) and inverse (parameter estimation) problems with ease.</p>
+                    <span class="badge">inverse</span>
+                </div>
+                <div class="library-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Multiple Backends</h3>
+                    <p>Seamlessly switch between TensorFlow 1.x, TensorFlow 2.x, and PyTorch backends.</p>
+                    <span class="badge">flexible</span>
+                </div>
+                <div class="library-card">
+                    <i class="fas fa-cube"></i>
+                    <h3>Complex Domain Support</h3>
+                    <p>Handle complex geometries, time-dependent problems, and system of PDEs with ease.</p>
+                    <span class="badge">advanced</span>
+                </div>
+            </div>
+            <p style="text-align: right; margin-top: 1rem;"><a href="https://deepxde.readthedocs.io/en/latest/" target="_blank" style="color: #ffaa33;">Learn more on DeepXDE docs <i class="fas fa-external-link-alt"></i></a></p>
+        </section>
+
+        <!-- REFERENCES -->
+        <section id="ref">
+            <h2 class="section-title">Academic <span>references</span></h2>
+            <div class="ref-grid">
+                <div class="ref-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Dr. Ahmad Zeeshan</h4>
+                    <p>Professor (HEC Supervisor)<br>Dept. of Mathematics & Statistics, IIUI</p>
+                    <p><i class="fas fa-envelope"></i> ahmad.zeeshan@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-astronaut"></i>
+                    <h4>Dr. Muhammad Imran Khan</h4>
+                    <p>Visiting Associate Professor (Co‑supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> muhammad.phdma132@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Dr. Rahmat Ellahi</h4>
+                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> r.ellahi@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-ninja"></i>
+                    <h4>Dr. Nasir Ali</h4>
+                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> nasir.ali@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-check"></i>
+                    <h4>Dr. Nayyar Mehmood</h4>
+                    <p>Professor (Class Teacher)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> nayyar.mehmood@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Dr. Amad Ur Rehman</h4>
+                    <p>Visiting Associate Professor<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> amad.phdmal31@iiu.edu.pk</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 30+ IDEAS -->
+        <section id="future">
+            <h2 class="section-title">Next <span>ideas (30+ concepts)</span></h2>
+            <div class="ideas-pool">
+                <span class="idea-chip">PINN for hypersonic flow</span>
+                <span class="idea-chip">Uncertainty in turbomachinery</span>
+                <span class="idea-chip">Bio‑magnetic fluid control</span>
+                <span class="idea-chip">Neural operators for stochastic PDEs</span>
+                <span class="idea-chip">Multi‑fidelity fusion (MF‑PINN)</span>
+                <span class="idea-chip">Flow stability with eigenvalue PINN</span>
+                <span class="idea-chip">3D printing thermal AI</span>
+                <span class="idea-chip">Real‑time digital twin of arteries</span>
+                <span class="idea-chip">Polynomial chaos + neural nets</span>
+                <span class="idea-chip">Uncertainty in climate models</span>
+                <span class="idea-chip">Physics‑informed DeepONets</span>
+                <span class="idea-chip">Sensitivity analysis of MHD flows</span>
+            </div>
+        </section>
+
+        <!-- CONTACT - updated PhD section -->
+        <footer id="contact">
+            <h2 style="color: #ffaa33; font-size: 2.8rem;">Seeking PhD Admission 2026</h2>
+            <p style="font-size: 1.3rem; margin: 1.5rem auto; max-width:800px;">
+                Actively looking for doctoral positions in computational physics, fluid mechanics, or scientific machine learning. 
+                My work bridges stochastic modeling, PINN, and high-performance computing. Open to collaboration and ready to contribute from day one.
+            </p>
+            <div style="margin: 2rem 0;">
+                <p><i class="fas fa-envelope" style="color:#ffaa33; margin-right:0.5rem;"></i>  muhammad.nazim.researcher@gmail.com  |  <i class="fab fa-whatsapp" style="color:#ffaa33;"></i>  +92 308 0743428</p>
+                <p><i class="fas fa-map-pin" style="color:#ffaa33;"></i>  IIUI, sector H‑10, Islamabad · Pakistan</p>
+            </div>
+            <div style="color:#5b74a4;">© 2026 Muhammad Nazim — stochastic PINN portfolio</div>
+        </footer>
+    </div>
+
+    <!-- MODAL FOR RESEARCH DETAILS -->
+    <div id="researchModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalBody"></div>
+    </div>
+
+    <!-- Image Popup -->
+    <div id="imagePopup" onclick="closeImagePopup()">
+        <span id="popupClose" onclick="closeImagePopup()">&times;</span>
+        <img id="popupImg" src="">
+    </div>
+
+    <!-- Three.js background -->
+    <script type="module">
+        import * as THREE from 'three';
+        const canvas = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a1020);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1, 8);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        canvas.appendChild(renderer.domElement);
+
+        const ambientLight = new THREE.AmbientLight(0x404060);
+        scene.add(ambientLight);
+        const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+        dirLight.position.set(1, 2, 4);
+        scene.add(dirLight);
+
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlesCount = 2000;
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i += 3) {
+            posArray[i] = (Math.random() - 0.5) * 20;
+            posArray[i+1] = (Math.random() - 0.5) * 12;
+            posArray[i+2] = (Math.random() - 0.5) * 15 - 5;
+        }
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMat = new THREE.PointsMaterial({ color: 0x7aa5f0, size: 0.07, transparent: true, opacity: 0.5 });
+        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particlesMesh);
+
+        const knotGeo = new THREE.TorusKnotGeometry(1, 0.3, 180, 24);
+        const knotMat = new THREE.MeshPhongMaterial({ color: 0xff9933, emissive: 0x331100, wireframe: true, transparent: true, opacity: 0.25 });
+        const knot = new THREE.Mesh(knotGeo, knotMat);
+        knot.position.set(0, 0, 0);
+        scene.add(knot);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.0002;
+            knot.rotation.x += 0.002;
+            knot.rotation.y += 0.003;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+    <!-- Modal data with images -->
+<script>
+    const modal = document.getElementById('researchModal');
+    const modalBody = document.getElementById('modalBody');
+    const imagePopup = document.getElementById('imagePopup');
+    const popupImg = document.getElementById('popupImg');
+
+    const papers = {
+        'stochastic-heat': {
+            title: 'Analysis of Parameter Uncertainty on Stochastic Heat Transfer',
+            abstract: 'Uncertainty quantification has become an essential element of the current computational modeling in the domain of thermal and transport sciences. The real world of engineering systems, such as environmental and chemical reactors, biomedical as well as energy systems, are subject to randomness in the input parameters. The parameters flow velocity, rate of reaction, diffusion coefficient, and blood perfusion change because of inaccuracy in measurements, the heterogeneity of materials or physiological changes [1-3]. This variability is intrinsic and conventional deterministic formulations, despite being fundamental, may not embody this variability and thus not describe probabilistic behaviour of physical systems fully under uncertain conditions [4, 5]. As a solution to these shortcomings, modern science has put its efforts into the field of uncertainty quantification (UQ), which involves statistically the characterization of model responses and the increase in predictive quality of simulation-based analysis [6, 7].',
+            methodology: 'In this thesis, a hybrid deterministic-stochastic form of modeling of the uncertainty propagation is created in one-dimensional transport and bioheat transfer problems. The method combines Non-Intrusive Spectral Projection (NISP) and Polynomial Chaos Expansion (PCE) to define the random input variables in orthogonal poly bases, allowing the effective uncertainty analysis without having to change the underlying deterministic solvers [8, 9]. Gaussian and LogNormal distributions are used to model parameters that are characterized by advection velocity and reaction rate in advection diffusion reaction (ADR) systems, blood perfusion in biological tissues, and those that exhibit symmetric and positively skewed variability [10, 11]. It is these uncertainties which are propagated using Monte Carlo (MC) simulations and spectral expansions that make it possible to directly compute the mean, variance, skewness and kurtosis, which are important statistical measures of the overall distribution of the given model response [12-14].',
+            results: 'The analysis of this work in the first part investigates one-dimensional advection diffusion-reaction (ADR) model which is utilized in numerous studies to model both porous and fluid reactive transport. The deterministic formulation provides a reference point whereas the stochastic analysis including the Gaussian and the LogNormal input illustrates the effect of variations in advective velocity and reaction rate on the solute concentration. Probability density function (PDFs) and cumulative distribution functions (CDFs) are statistical post-processing to quantify the probability of extreme outcomes, and give confidence intervals using the Central Limit Theorem [15, 16]. The second part uses a comparable model to the Pennes bioheat equation, which incorporates random perfusion influences in biological tissue. The uncertain perfusion can be propagated efficiently using non-intrusive spectral projection, and the resulting stochastic tissue temperature fields have quantifiable statistical measures [17, 18]. The findings indicate that Gaussian-based modeling generates symmetric variations of temperature, whereas the LogNormal-based modeling generates positive skewness and heavier tails of the distribution- these characteristics are indicative of physiological realism in heat transfer due to perfusion process [19-21].',
+            overviewImg: 'https://i0.wp.com/www.thephysicsmill.com/blog/wp-content/uploads/monte_carlo_for_pi.gif', // MC convergence - heat UQ
+            outcomes: ['Reduced computational cost', 'First PINN for stochastic heat', 'Revision in Nonlinear Science'],
+            gifs: [
+                { url: 'https://csdl-images.ieeecomputer.org/trans/tp/2023/01/figures/zhao4-3153225.gif', desc: 'SVM C Prediction Error Convergence' },
+                { url: 'https://i.sstatic.net/TLnbV1Jj.png', desc: 'Power Spectral Density Analysis' },
+                { url: 'https://www.engr.colostate.edu/CBE101/_images/heat_transfer_convective_profile.gif', desc: 'Convective Heat Transfer Profile' }
+            ]
+        },
+        'dusty-flow': {
+            title: 'Stochastic Uncertainty Alignment in Physics-Informed Neural Network: An Optimization of Two-Phase Dusty Flow',
+            abstract: 'Machine learning with surrogate-based modeling plays a significant role in fluid mechanics and engineering problems. Physics-Informed Neural Network (PINN) is an efficient and effective approach for accurately quantifying uncertainty in fluid flow and heat transfer rates. The author focuses on developing stochastic uncertainty alignment in a physics-informed neural network that incorporates the physical constraints imposed by the governing flow equations. The presented work is an extension of traditional PINN method by including stochastic uncertainty in the two-phase dusty flow with stretching boundaries. The governing flow problem contains nonlinear partial differential equations which are transformed into a system of ordinary differential equations. The flow parameters are treated as stochastic inputs to propagate the physics-based uncertainty. The Stochastic Physics-Informed Neural Network (S-PINN) directly integrates physical laws and boundary conditions into the loss function during training. Heat and mass transport phenomena are most affected by increasing values of radiation intensity and nanoparticle volume fraction. There is wide range of applications of these findings in engineering and fluid mechanics i.e. heat dissipation in fusion reactor blankets and car radiators. The magnetic field intensity enhanced the cooling capacity for microelectronics, solar panels, and temperature control in polymer extrusion.',
+            methodology: 'The primary concern of this investigation is to develop an efficient and robust computational algorithm for the quantification of uncertainty in radiative magneto-dusty nanofluid flow. The stochastic physics-informed neural network (S-PINN) model is used with a traditional deterministic approach to analyze uncertainties in physical parameters i.e. thermal radiation and nanoparticle concentration. As a results an accurate prediction and approximate solution are computed for momentum and thermal boundary layer flow of dusty nanofluid.',
+            results: 'The developed S-PINN methodology is a modification of traditional PINN to predict uncertainty in the heat and mass transfer. The author used physical constraints as a loss function in the S-PINN design to approximate heat and mass transfer in the presence of dust particles. Fig. 3 shows the convergence history of the S-PINN over 50,000 steps. The semi-logarithmic plot shows the decay of the total loss as well as the residual loss of both the liquid and dust momentum, energy equations and boundary condition loss. Fig. 3 shows that all residual plots fall steadily at a high learning rate. The overall cumulative loss is which means that the developed S-PINN algorithm predicts the solution with high precision and accuracy.',
+            overviewImg: 'https://us.v-cdn.net/6038102/uploads/attachments/9813c51797478690da583b47f053af84/5_mixing.gif', // Particle mixing - dusty flow
+            outcomes: ['Convergence proof for stochastic PINN', 'Under review at Advanced Theory & Simulations'],
+            gifs: [
+                { url: 'https://i.imgur.com/b37Gkn7.gif', desc: 'SPH Particle Simulation in Flow' },
+                { url: 'https://csdl-images.ieeecomputer.org/trans/ta/2024/03/figures/baldi3-3352424.gif', desc: 'Biofeedback Balloon for Thermal Interaction' },
+                { url: 'https://i.redd.it/l5lai2vumvp41.gif', desc: 'Cylinder Vortex Comparison in Dusty Flow' }
+            ]
+        },
+        'inclined-cylinder': {
+            title: 'Physics-Informed Neural Network for Stochastic Realization of Mixed Convection Flow',
+            abstract: 'This paper introduces a sound stochastic physics-informed neural network (S-PINN) model for predicting mixed convection flow and heat transfer of Casson fluid over an inclined cylinder when it experiences magnetic and radiative forces. The governing momentum and energy equations are derived under the boundary layer assumption. These uncertain inputs are modeled by the use of statistically independent random variables, which means that the flow and thermal fields can be expressed as random distributions, not random numbers. The training of a deep neural architecture is based on a composite loss, that satisfies physical laws, boundary conditions, and stochastic sampling. By using standard Monte-Carlo CFD simulations, the trained S-PINN can predict flow outputs i.e. mean velocity, temperature fields, uncertainty bands and probability density functions. Findings indicate that the developed scheme accurately describes the uncertainty quantification accurately. In general, S-PINN represents an effective, mesh-free, and physics-based surrogate model for uncertainty-quantified analysis.',
+            methodology: 'The purpose of this work is to create, train, and assess a stochastic physics-informed neural network (S-PINN) that can be used to predict the hydrodynamic and thermal fields of Casson fluid flow around an inclined curved cylinder. The framework proposed clearly explains the uncertainties due to non-Newtonian rheology, strength of the magnetic field, inclination effects, and radiative heat transfer. It measures the effect of such factors on the important outputs, such as velocity, temperature, wall shear stress, and heat transfer rates. The first goal is to develop a mesh-free, efficient computationally, physically consistent surrogate model that is statistically reliable as an alternative to classical Monte Carlo simulations.',
+            results: 'The S-PINN was able to capture the behavior of a boundary layer, and the development of the wake, Lorentz damping, and radiative thermal thickening with high fidelity in comparison with reference CFD solutions. The obtained stochastic inputs that were predicted in terms of probability distributions, variance maps, and sensitivity indices indicated that the stochastic inputs have a quantifiable effect on both momentum and heat-transfer properties, the most important of which are the Casson rheology and radiation parameter.',
+            overviewImg: 'https://nilsol.folk.ntnu.no/cases/cylinder/cyl-wv1.gif', // Vortex shedding - inclined cylinder
+            outcomes: ['Mesh-free surrogate for non-Newtonian MHD', 'Quantified parameter impact on drag/Nusselt'],
+            gifs: [
+                { url: 'https://i.redd.it/l5lai2vumvp41.gif', desc: 'Von Karman Street Comparison' },
+                { url: 'https://danmackinlay.name/images/less_risteski_animation_tempering.gif', desc: 'MCMC Tempering for Convergence' },
+                { url: 'https://i0.wp.com/geoenergymath.com/wp-content/uploads/2020/06/32ed2-bore-hole-response-chart-opt.gif?ssl=1', desc: 'Borehole Transient Response' }
+            ]
+        },
+        'cylinder-flow': {
+            title: 'Stochastic Alignment in Heat and Fluid Flow over a Circular Cylinder with Physics Informed Neural Network',
+            abstract: 'Physics-informed neural network schemes emerge as the most powerful computing techniques in many engineering and industrial applications. Physics Informed Neural Networks (PINNs) form a backbone of physics-based simulation of governing flow equations and physical laws. PINN has been demonstrated to be poorly scaled to optimization problems and accuracy disparities. This paper addresses gradient-based optimization of PINN for heat and fluid flow using stochastic uncertainty quantification. Stochastic physics-informed neural networks with polynomial chaos enable accurate computation of uncertainty quantification of aerodynamic forces and heat transfer over a cylindrical domain. Stochastic Physics Informed Neural Network (S-PINN) with uncertainty quantification serves as a fast surrogate model for probabilistic forecasts of fluid flow and heat transfer analysis. The governing flow equations include the incompressible Navier-Stokes and energy equations that are embedded into the neural network loss function with automatic differentiation to predict uncertainty. However, uncertainties in boundary conditions and external forces often make deterministic models inadequate. In this study, stochastic physics-informed neural networks are developed to quantify and predict uncertainty in heat and flow. The probabilistic loss term allows the network to approximate the variance and means of the solution field; however, random perturbations are incorporated into the flow parameters and boundary conditions to stimulate stochastic behavior. The developed stochastic physics-informed neural networks effectively combine data-driven learning with physical laws, providing a robust solution under uncertain conditions. Uncertainties in random changes in velocity and thermal diffusivity are represented by Gaussian and lognormal distributions to represent the propagation of uncertainty. The framework forecasts velocity and temperature fields and measures their levels of confidence. The findings demonstrate the potential of stochastic physics-informed neural networks as an effective and efficient computing tool for quantifying uncertainty in heat and fluid flow.',
+            methodology: 'The main aim of the current investigation is to develop a Stochastic Physics-Informed Neural Network (S-PINN) model that can provide accurate predictions of uncertainty quantification of the unsteady flow and heat transfer of a circular cylinder. The entities of the developed approach are to close the gap between deterministic models and underlying goal of the uncertain predictive frameworks by solving the uncertainty representation through the integration of probabilistic representations into the neural network design. The developed design incorporates both epistemic uncertainty that occur due to model assumption and aleatoric uncertainty which arises from inherent randomness of data. The model can produce trustworthy confidence ranges for the flow and temperature fields in addition to accurate mean predictions by taking into account both kinds of uncertainties.',
+            results: 'The S-PINN is not only able to reproduce benchmark CFD and experimental data with an incredible amount of accuracy. An error is found to be less than 2%, but also presents the underlying physical structures i.e. vortex shedding, development of wake, and temperature variations that naturally arise during training. The convergence analysis showed that the loss and residuals are decreasing steadily and monotonically therefore deterministic and stochastic components of solution came to same equilibrium. The resulting fields of mean and variance give a profound physical understanding of the spread of the random perturbations in the fields of flows and thermal characteristics throughout the domain. The quantification of interpretable uncertainty is a key advantage of the S-PINN. Overall, the developed approach has paved the way for physics-conscious neural computing that can accurately understand intricate, unpredictable flow and heat interactions.',
+            overviewImg: 'https://innovationspace.ansys.com/courses/wp-content/uploads/sites/5/2020/04/vorticity.gif', // Vorticity evolution - circular cylinder
+            outcomes: ['Efficient surrogate for probabilistic forecasts', 'Validated with CFD'],
+            gifs: [
+                { url: 'https://nilsol.folk.ntnu.no/cases/cylinder/cyl-vv1.gif', desc: 'Vortex Shedding in Cylinder Flow' },
+                { url: 'https://danmackinlay.name/images/less_risteski_animation_tempering.gif', desc: 'Stochastic Tempering Convergence' },
+                { url: 'https://us.v-cdn.net/6038102/uploads/attachments/9813c51797478690da583b47f053af84/4_lawnmower.gif', desc: 'Particle Flow in Mixer' }
+            ]
+        },
+        'hybrid-framework': {
+            title: 'Hybrid Stochastic Deterministic Framework for Uncertainty Propagation in Dynamic Relaxation Systems',
+            abstract: 'The Polynomial Chaos Expansion (PCE) framework and hybrid Monte Carlo (MC) approach is a effective technique to quantify uncertainty particularly in complex systems that are a combination of stochastic and deterministic components. The framework combines efficiency of the Monte Carlo approaches with the polynomial chaos expansion enhances the efficiency of proposed algorithm. Monte Carlo and non-intrusive polynomial chaos expansion is applied to find uncertainty in the considered model with the combinations of Gaussian and Lognormal probability distributions. It has the ability to address the curse of dimensionality as well as facilitate uncertainty propagation in most applications. This paper presents a hybrid stochastic-deterministic method for evaluating uncertainty in dynamic relaxation systems. The suggested scheme is a combination of Monte Carlo simulations and non-intrusive polynomial chaos expansion used to model random variations in system parameters that are subject to Gaussian and Lognormal probability distributions. Analytical relations are developed using ensemble-based statistical analysis and numerical results indicate that there exists a good agreement between the spectral estimates and the Monte Carlo reference solutions. The computational cost significantly reduces with the used of this approach as compared with traditional sampling scheme. The efficacy of the formulation is simplified through the hyperbolic formulation of heart rate variability, focusing on the impact that varying probability distributions have on temporal dynamics.',
+            methodology: 'The main goal of this work is to develop a comprehensive stochastic deterministic framework for studying how uncertainty propagates in dynamic relaxation systems described by coupled differential equations. This investigation is based on the Non-Intrusive Spectral Projection (NISP) method with conventional deterministic models for uncertainty quantification. This integration allows the influence of random parameters to be evaluated accurately without altering the existing governing equations. The specific objectives of the study are outlined as follows: To develop a mathematical model for simplified governing dynamical system to examine combined influences of damping, restorative effects, and periodic excitation under uncertain conditions. Gaussian and Lognormal probability distributions are applied to additive and multiplicative variations in parameters i.e. relaxation time, feedback gain coupling strength and excitation frequency. Monte Carlo simulation is applied with Polynomial Chaos Expansion (PCE) within the NISP framework for efficient propagation of uncertainty and estimation of key statistical moments i.e. mean, variance and skewness.',
+            results: 'The integrated Monte Carlo and PCE methods are a mature and computationally effective scheme to the propagating of uncertainty in complex dynamic systems. The results show that both methods yield nearly identical mean and variance estimates, confirming the consistency of the spectral formulation with the sampling benchmark. However, PCE requires far fewer model evaluations and substantially less computation time, demonstrating its numerical efficiency. The small deviation in higher-order moments indicates that the surrogate accurately reproduces the stochastic behavior of the system while offering a significant reduction in computational effort.',
+            overviewImg: 'https://danmackinlay.name/images/less_risteski_animation_tempering.gif', // Tempering convergence - dynamic relaxation
+            outcomes: ['Reduced cost vs pure MC', 'Sobol sensitivity for parameters', 'Non-Gaussian response characterization'],
+            gifs: [
+                { url: 'https://i.sstatic.net/JzW1wK2C.png', desc: 'Noise Deviation' },
+                { url: 'https://i.ytimg.com/vi/JZGpkn0DxU4/maxresdefault.jpg', desc: 'Damped Oscillator Plot' },
+                { url: 'https://i.ytimg.com/vi/K1Jz3MeIi_c/maxresdefault.jpg', desc: 'Sobol Energy Harvester' }
+            ]
+        },
+        'bioheat-pce': {
+            title: 'Non-Intrusive Polynomial Chaos Expansion for Stochastic Simulation of Bioheat Equation',
+            abstract: 'Accurate estimation of temperature distribution in living tissues is essential for thermal therapies and medical planning. A key source of variability arises from blood perfusion, which is never constant and strongly influences heat transfer. In this work, the one-dimensional steady Penne’s bioheat equation is reformulated by treating blood perfusion as a random variable. Both Gaussian and Lognormal distributions are considered to reflect symmetric fluctuations and strictly positive physiological behavior. The deterministic model serves as a reference, while stochastic behavior is quantified through Monte Carlo simulations and a Polynomial Chaos Expansion constructed using non-intrusive spectral projection. The proposed framework allows direct evaluation of statistical indicators, including mean, variance, skewness, and kurtosis of the tissue temperature. Results show that Gaussian inputs reproduce balanced variability, whereas Lognormal inputs introduce skewed and heavy-tailed outcomes, highlighting the need to enforce positivity in perfusion. The approach demonstrates high efficiency and offers a reliable path for incorporating uncertainty into thermal modeling, supporting the design of safer and more predictable biomedical heating strategies.',
+            methodology: 'Stochastic modeling provides a means to overcome this limitation by introducing randomness into perfusion and related parameters. Among different uncertainty quantification techniques, Monte Carlo simulation is the most straightforward but requires extensive sampling and high computational cost. More efficient alternatives, such as Polynomial Chaos Expansion (PCE), allow random inputs to be expressed in terms of orthogonal polynomial bases. This approach enables the propagation of uncertainty through deterministic models without modifying the governing equations and provides direct access to statistical measures such as mean, variance, skewness, and kurtosis of the solution. In this study, blood perfusion is represented as a random variable described by Gaussian and Lognormal distributions. The Gaussian distribution is suitable for symmetric variability around a mean value, whereas the Lognormal distribution enforces positivity, reflecting a more physiologically consistent description. By combining deterministic solutions of the Pennes equation with stochastic methods, this work develops a systematic framework to study how perfusion uncertainty affects temperature distribution in tissue.',
+            results: 'The results show that both methods yield nearly identical mean and variance estimates, confirming the consistency of the spectral formulation with the sampling benchmark. However, PCE requires far fewer model evaluations and substantially less computation time, demonstrating its numerical efficiency. The small deviation in higher-order moments indicates that the surrogate accurately reproduces the stochastic behavior of the system while offering a significant reduction in computational effort. Gaussian inputs lead to symmetric variability around the mean, whereas Lognormal inputs introduce skewness and heavy tails, resulting in a greater likelihood of lower tissue temperatures. At low perfusion levels, deterministic predictions remain close to stochastic results, but as perfusion increases, variability becomes more significant and widens the range of possible outcomes.',
+            overviewImg: 'https://global.discourse-cdn.com/nvidia/original/4X/2/d/2/2d284e193c2561d0e04fe7ecb64966c8c90858a6.gif', // Bioheat temperature distribution GIF
+            outcomes: ['Efficient PCE vs MC for bioheat UQ', 'Gaussian/Lognormal perfusion distributions', 'Skew/kurtosis for tissue temperature'],
+            gifs: [
+                { url: 'https://techblog.foobot.io/assets/pinn/fdm_solution.gif', desc: 'Finite Difference Method Heat Equation Solution' },
+                { url: 'https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fsj.ijir.3901628/MediaObjects/41443_2008_Article_BF3901628_Fig2_HTML.jpg', desc: 'Temperature Distribution in Tissue' },
+                { url: 'https://miro.medium.com/v2/resize:fit:1400/1*SGf-Cprc7MGTi5A9cHYKtg.gif', desc: 'Heat Equation Rod Temperature Evolution' }
+            ]
+        }
+    };
+
+    window.openResearchModal = function(key) {
+        const p = papers[key];
+        if (!p) return;
+        let gifsHtml = '<h2>Key Visualizations & Simulations</h2><p>These animations demonstrate core concepts from the research. Click to enlarge for better view.</p><div class="animations-gallery">';
+        p.gifs.forEach(g => {
+            gifsHtml += `
+                <div class="animation-item" onclick="showImagePopup('${g.url}')">
+                    <img src="${g.url}" alt="${g.desc}">
+                    <h4>${g.desc}</h4>
+                    <p>This visualization shows the dynamic behavior of the system under stochastic conditions.</p>
+                </div>
+            `;
+        });
+        gifsHtml += '</div>';
+        modalBody.innerHTML = `
+            <div class="modal-article">
+                <h1>${p.title}</h1>
+                <h2>Abstract</h2>
+                <p>${p.abstract}</p>
+                <h2>Methodology</h2>
+                <p>${p.methodology}</p>
+                <h2>Results & Discussion</h2>
+                <p>${p.results}</p>
+                <h2>Paper Overview Visualization</h2>
+                <div style="text-align:center; margin:2rem 0;">
+                    <img src="${p.overviewImg}" alt="Paper Overview" style="max-width:80%; border-radius:20px; border:2px solid #ffaa33; cursor:pointer;" onclick="showImagePopup('${p.overviewImg}')">
+                    <p>Click to enlarge — this represents the overall concept/figure of the paper.</p>
+                </div>
+                <h2>Key Outcomes</h2>
+                <ul>${p.outcomes.map(o => `<li>${o}</li>`).join('')}</ul>
+                ${gifsHtml}
+                <p><i class="fas fa-file-pdf"></i> Full paper available — email me.</p>
+            </div>
+        `;
+        modal.style.display = 'block';
+        MathJax.typesetPromise?.();
+    };
+
+    window.closeModal = function() { modal.style.display = 'none'; };
+    window.onclick = (e) => { if (e.target === modal) closeModal(); };
+
+    window.showImagePopup = function(src) {
+        popupImg.src = src;
+        imagePopup.style.display = 'flex';
+    };
+    window.closeImagePopup = function() {
+        imagePopup.style.display = 'none';
+    };
+</script>
+</body>
+</html>
