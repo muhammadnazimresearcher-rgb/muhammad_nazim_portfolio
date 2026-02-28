@@ -30,7 +30,67 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-
+.edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .edu-card {
+            background: rgba(18, 30, 52, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid #3f5285;
+            border-radius: 28px;
+            padding: 2.2rem;
+            transition: all 0.35s ease;
+            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6);
+        }
+        
+        .edu-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffaa33;
+            box-shadow: 0 25px 45px -15px #ffaa3340;
+            background: rgba(30, 45, 75, 0.92);
+        }
+        
+        .edu-card i {
+            font-size: 3.2rem;
+            color: #ffaa33;
+            margin-bottom: 1.2rem;
+        }
+        
+        .edu-card h3 {
+            font-size: 1.9rem;
+            margin-bottom: 0.6rem;
+            color: #ffffff;
+        }
+        
+        .edu-card .degree {
+            font-size: 1.25rem;
+            color: #b0cdff;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .edu-card .inst {
+            color: #92abeb;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cgpa {
+            display: inline-block;
+            background: #ffaa3320;
+            border: 1px solid #ffaa33;
+            color: #ffdd99;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
+        }
         /* 3D canvas background */
         #three-canvas {
             position: fixed;
@@ -641,13 +701,14 @@
         <nav>
             <div class="logo">MUHAMMAD NAZIM</div>
             <div class="nav-links">
-                <a href="#research">Research</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#journey">Journey</a>
-                <a href="#ref">References</a>
-                <a href="#future">Ideas</a>
-                <a href="#library">DeepXDE</a>
-                <a href="#contact">Contact</a>
+    <a href="#education">Education</a> 
+    <a href="#research">Research</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#journey">Journey</a>
+    <a href="#ref">References</a>
+    <a href="#future">Ideas</a>
+     <a href="#library">DeepXDE</a>
+    <a href="#contact">Contact</a>
             </div>
         </nav>
 
@@ -674,7 +735,27 @@
                 </div>
             </div>
         </section>
+        <!-- EDUCATION SECTION-->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>MS / MPhil Applied Mathematics</h3>
+                    <div class="degree">2024 – 2026</div>
+                    <div class="inst">International Islamic University Islamabad (IIUI)</div>
+                    <div class="cgpa">CGPA: 3.75 / 4.00</div>
+                </div>
 
+                <div class="edu-card">
+                    <i class="fas fa-book-open"></i>
+                    <h3>BS Mathematics</h3>
+                    <div class="degree">2019 – 2023</div>
+                    <div class="inst">International Islamic University Islamabad (IIUI)</div>
+                    <div class="cgpa">CGPA: 3.64 / 4.00</div>
+                </div>
+            </div>
+        </section>
         <!-- RESEARCH SECTION -->
         <section id="research">
             <h2 class="section-title">Peer‑reviewed <span>& under review</span></h2>
@@ -727,6 +808,37 @@
                     <div class="tag-list"><span class="tag">Bioheat</span><span class="tag">PCE</span><span class="tag">NISP</span></div>
                     <span style="color:#ffaa33;">simulations →</span>
                 </div>
+                <!-- NEW: Uncertainty Quantification in Heat Transfer (Fins & Cylinder with NISP-ANN) -->
+<div class="glass-card" onclick="openResearchModal('fins-cylinder-uq')">
+    <i class="fas fa-fire-extinguisher"></i>
+    <h3>Uncertainty Quantification in Heat Transfer: Fins & Cylinder</h3>
+    <div class="pub-meta">M. Nazim · Hybrid NISP-ANN · Under review / Thesis</div>
+    <p>Non-Intrusive Spectral Projection + ANN surrogates for stochastic fin conduction and forced convection. MSE 0.0012–0.0018, mean/variance/confidence intervals for temperature, efficiency, Nusselt & friction.</p>
+    <div class="tag-list">
+        <span class="tag">UQ</span>
+        <span class="tag">NISP</span>
+        <span class="tag">ANN</span>
+        <span class="tag">Fins</span>
+        <span class="tag">Convection</span>
+    </div>
+    <span style="color:#ffaa33;">click for details & stats →</span>
+</div>
+
+<!-- NEW: PINN for MHD Jeffrey Nanofluid in Sinusoidal Channel (Book Chapter) -->
+<div class="glass-card" onclick="openResearchModal('pinn-jeffrey-nanofluid')">
+    <i class="fas fa-wave-square"></i>
+    <h3>PINN for MHD Jeffrey Nanofluid in Sinusoidal Channel</h3>
+    <div class="pub-meta">M. Nazim · Book Chapter (Nanoparticles) · PINN framework</div>
+    <p>Physics-Informed Neural Network solves coupled MHD mixed convection with Brownian motion & thermophoresis. Effects on velocity streamlines, temperature & concentration fields in wavy channel.</p>
+    <div class="tag-list">
+        <span class="tag">PINN</span>
+        <span class="tag">MHD</span>
+        <span class="tag">Jeffrey nanofluid</span>
+        <span class="tag">Brownian motion</span>
+        <span class="tag">Thermophoresis</span>
+    </div>
+    <span style="color:#ffaa33;">streamlines & convergence →</span>
+</div>
             </div>
         </section>
 
@@ -1061,7 +1173,44 @@
                 { url: 'https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fsj.ijir.3901628/MediaObjects/41443_2008_Article_BF3901628_Fig2_HTML.jpg', desc: 'Temperature Distribution in Tissue' },
                 { url: 'https://miro.medium.com/v2/resize:fit:1400/1*SGf-Cprc7MGTi5A9cHYKtg.gif', desc: 'Heat Equation Rod Temperature Evolution' }
             ]
-        }
+        },
+        'fins-cylinder-uq': {
+    title: 'Uncertainty Quantification in Heat Transfer: A Stochastic Approach to Fins and Forced Convection Over Cylinders',
+    abstract: 'This paper constructs a stochastic model using Non-Intrusive Spectral Projection (NISP) and Artificial Neural Networks (ANN) as surrogates to quantify uncertainty in one-dimensional fin conduction and forced convection over cylinders. Hybrid NISP-ANN predicts temperature distributions, fin efficiency, Nusselt number, and friction coefficient with high fidelity (MSE training 0.0012, testing 0.0018).',
+    methodology: 'NISP with Polynomial Chaos (Hermite for Gaussian/LogNormal) propagates uncertainty in thermal conductivity, velocity, Prandtl number. ANN (MLP) trained on NISP samples as fast surrogate. Gauss-Hermite quadrature for spectral modes. Confidence intervals at 95%.',
+    results: 'Stochastic means closely match deterministic at low uncertainty; divergence increases at higher σ. LogNormal better for physical positivity. ANN shows excellent regression (R near 1), low MSE, and fast convergence. Fin tip and high-M regions most sensitive.',
+    overviewImg: 'https://techblog.foobot.io/assets/pinn/fdm_solution.gif', 
+    outcomes: [
+        'Hybrid NISP-ANN reduces computational cost significantly',
+        'Quantified sensitivity in fins and cylinder convection',
+        'MSE < 0.002 → high-fidelity surrogate',
+        'Suitable for thermal design under uncertainty'
+    ],
+    gifs: [
+    { url: 'https://innovationspace.ansys.com/courses/wp-content/uploads/sites/5/2020/04/vorticity.gif', desc: 'Vortex shedding & convection over cylinder' },
+    { url: 'https://miro.medium.com/v2/resize:fit:1400/1*SGf-Cprc7MGTi5A9cHYKtg.gif', desc: 'Heat diffusion with uncertainty convergence' },
+    { url: 'fin1.jpg', desc: 'Stochastic temperature in fin/rod' }
+]
+},
+
+'pinn-jeffrey-nanofluid': {
+    title: 'A Physics-Informed Neural Network Study of MHD Jeffrey Nanofluid Flow with Heat and Mass Transfer in a Sinusoidally Varying Channel',
+    abstract: 'PINN framework solves coupled nonlinear PDEs for MHD mixed convection of Jeffrey nanofluid in sinusoidal channel. Incorporates Brownian motion and thermophoresis effects. Mesh-free, automatic differentiation-based solution.',
+    methodology: 'Fully-connected NN approximates velocity, temperature, concentration. PDE residuals + boundary conditions in loss function. Adam optimizer. Absolute error and RMSE for validation against benchmarks.',
+    results: 'Brownian motion & thermophoresis thicken thermal/concentration boundary layers. Grashof & Jeffrey parameters strongly affect streamlines and flow complexity. Very low absolute errors confirm high accuracy.',
+    overviewImg: 'book1.jpg', // Replace with actual streamline or temperature plot
+    outcomes: [
+        'Stable convergence of PDE & boundary losses',
+        'Enhanced heat/mass transfer via nanoparticle effects',
+        'PINN as robust alternative to mesh-based solvers',
+        'Excellent agreement with benchmark solutions'
+    ],
+    gifs: [
+    { url: 'book2.jpg', desc: 'PINN training convergence – loss & solution improving' },
+    { url: 'https://techblog.foobot.io/assets/pinn/pinn_solution.gif', desc: 'Temperature field evolution with diffusion effects' },
+    { url: 'https://i-ric.org/yasu/nbook_e/_images/vec.gif', desc: 'Streamlines in wavy channel flow (Jeffrey parameter influence)' }
+]
+}
     };
 
     window.openResearchModal = function(key) {
