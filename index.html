@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Nazim · Stochastic PINNs · Computational Scientist</title>
+    <title>Muhammad Nazim | PhD 2026 | Scientific Machine Learning</title>
     <!-- Font Awesome 6 (free) - correct icon kit -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- MathJax for elegant equations -->
@@ -200,12 +200,16 @@
         }
 
         .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.8rem 2rem;
             border-radius: 40px;
             font-weight: 600;
             text-decoration: none;
             transition: 0.2s;
             border: 1px solid transparent;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -692,7 +696,9 @@
             .journey-grid { grid-template-columns: 1fr; }
             .animations-gallery { grid-template-columns: 1fr; }
         }
-    </style>
+            .glass-card.top-priority { border: 2px solid #ffaa33; box-shadow: 0 0 30px #ffaa3340; }
+        .glass-card.top-priority::before { content: "TOP PRIORITY"; position: absolute; top: 1rem; right: 1rem; background: #ffaa33; color: #0a0f1e; font-size: .65rem; font-weight: 800; padding: .25rem .7rem; border-radius: 999px; letter-spacing: 1px; }
+</style>
 </head>
 <body>
     <div id="three-canvas"></div>
@@ -717,7 +723,7 @@
             <div class="hero-content">
                 <div class="hero-suptitle">IIUI · STOCHASTIC MODELING & PINN</div>
                 <h1 class="hero-name">Muhammad Nazim</h1>
-                <div class="hero-tagline">Stochastic PDEs · Physics-Informed Neural Network · Python</div>
+                <div class="hero-tagline">Applied Mathematics · Scientific Machine Learning · PINN · UQ</div>
                 <p class="hero-desc">
                     Master in Mathematics (2026) · 5+ papers under review. Expertise in uncertainty 
                     quantification, stochastic heat transfer, two-phase flows, and PINN (TensorFlow, 
@@ -735,8 +741,8 @@
                 </div>
             </div>
         </section>
-        <!-- EDUCATION SECTION-->
-        <section id="education">
+
+<section id="education">
             <h2 class="section-title">Education</h2>
             <div class="edu-grid">
                 <div class="edu-card">
@@ -756,113 +762,151 @@
                 </div>
             </div>
         </section>
-        <!-- RESEARCH SECTION -->
-        <section id="research">
-            <h2 class="section-title">Peer‑reviewed <span>& under review</span></h2>
-            <div class="card-grid" id="research-cards">
-                <div class="glass-card" onclick="openResearchModal('stochastic-heat')">
-                    <i class="fas fa-fire"></i>
-                    <h3>Stochastic Heat Transfer</h3>
-                    <div class="pub-meta">M. Nazim, M. Imran Khan, A. Zeeshan · Nonlinear science (revision)</div>
-                    <p>Uncertainty propagation in heat problems using PINN + Monte Carlo. 2x faster convergence.</p>
-                    <div class="tag-list"><span class="tag">PINN</span><span class="tag">stochastic PDE</span><span class="tag">Python</span></div>
-                    <span style="color:#ffaa33;">click for simulation →</span>
-                </div>
-                <div class="glass-card" onclick="openResearchModal('dusty-flow')">
-                    <i class="fas fa-wind"></i>
-                    <h3>Two‑Phase Dusty Flow</h3>
-                    <div class="pub-meta">Nazim, El Khider, Almakki · under review @ Adv. Theory Sim.</div>
-                    <p>PINN + ADAM optimizer for particle‑fluid systems. Experimental validation.</p>
-                    <div class="tag-list"><span class="tag">multiphase</span><span class="tag">ADAM</span><span class="tag">TensorFlow</span></div>
-                    <span style="color:#ffaa33;">video & math →</span>
-                </div>
-                <div class="glass-card" onclick="openResearchModal('inclined-cylinder')">
-                    <i class="fas fa-stream"></i>
-                    <h3>Mixed Convection over Inclined Cylinder</h3>
-                    <div class="pub-meta">M. Shoaib, M. Almakki, M. El Khider · under review</div>
-                    <p>S-PINN for Casson fluid with MHD and radiation. Uncertainty bands for velocity/temperature.</p>
-                    <div class="tag-list"><span class="tag">MHD</span><span class="tag">Casson fluid</span><span class="tag">S-PINN</span></div>
-                    <span style="color:#ffaa33;">animations →</span>
-                </div>
-                <div class="glass-card" onclick="openResearchModal('cylinder-flow')">
-                    <i class="fas fa-circle-notch"></i>
-                    <h3>Flow over Circular Cylinder (PINN)</h3>
-                    <div class="pub-meta">M. Imran Khan, M. Nazim, A. Zeeshan · under review @ EAAI</div>
-                    <p>Second‑order optimization (L‑BFGS) for stochastic fluid flow. Vortex shedding with uncertainty.</p>
-                    <div class="tag-list"><span class="tag">Navier‑Stokes</span><span class="tag">L‑BFGS</span><span class="tag">PyTorch</span></div>
-                    <span style="color:#ffaa33;">simulation →</span>
-                </div>
-                <div class="glass-card" onclick="openResearchModal('hybrid-framework')">
-                    <i class="fas fa-cubes"></i>
-                    <h3>Hybrid Stochastic‑Deterministic</h3>
-                    <div class="pub-meta">Nazim, Khan, Zeeshan · revision submitted</div>
-                    <p>Monte Carlo + Polynomial Chaos for relaxation systems. New UQ framework.</p>
-                    <div class="tag-list"><span class="tag">UQ</span><span class="tag">PCE</span><span class="tag">Python</span></div>
-                    <span style="color:#ffaa33;">view details →</span>
-                </div>
-                <div class="glass-card" onclick="openResearchModal('bioheat-pce')">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Non-Intrusive PCE for Bioheat Equation</h3>
-                    <div class="pub-meta">M. Imran Khan, M. Nazim · under review</div>
-                    <p>Stochastic perfusion in Pennes bioheat model using PCE/NISP. Gaussian/Lognormal distributions for tissue temperature UQ.</p>
-                    <div class="tag-list"><span class="tag">Bioheat</span><span class="tag">PCE</span><span class="tag">NISP</span></div>
-                    <span style="color:#ffaa33;">simulations →</span>
-                </div>
-                <!-- NEW: Uncertainty Quantification in Heat Transfer (Fins & Cylinder with NISP-ANN) -->
-<div class="glass-card" onclick="openResearchModal('fins-cylinder-uq')">
-    <i class="fas fa-fire-extinguisher"></i>
-    <h3>Uncertainty Quantification in Heat Transfer: Fins & Cylinder</h3>
-    <div class="pub-meta">M. Nazim · Hybrid NISP-ANN · Under review / Thesis</div>
-    <p>Non-Intrusive Spectral Projection + ANN surrogates for stochastic fin conduction and forced convection. MSE 0.0012–0.0018, mean/variance/confidence intervals for temperature, efficiency, Nusselt & friction.</p>
-    <div class="tag-list">
-        <span class="tag">UQ</span>
-        <span class="tag">NISP</span>
-        <span class="tag">ANN</span>
-        <span class="tag">Fins</span>
-        <span class="tag">Convection</span>
-    </div>
-    <span style="color:#ffaa33;">click for details & stats →</span>
-</div>
 
-<!-- NEW: PINN for MHD Jeffrey Nanofluid in Sinusoidal Channel (Book Chapter) -->
-<div class="glass-card" onclick="openResearchModal('pinn-jeffrey-nanofluid')">
-    <i class="fas fa-wave-square"></i>
-    <h3>PINN for MHD Jeffrey Nanofluid in Sinusoidal Channel</h3>
-    <div class="pub-meta">M. Nazim · Book Chapter (Nanoparticles) · PINN framework</div>
-    <p>Physics-Informed Neural Network solves coupled MHD mixed convection with Brownian motion & thermophoresis. Effects on velocity streamlines, temperature & concentration fields in wavy channel.</p>
-    <div class="tag-list">
-        <span class="tag">PINN</span>
-        <span class="tag">MHD</span>
-        <span class="tag">Jeffrey nanofluid</span>
-        <span class="tag">Brownian motion</span>
-        <span class="tag">Thermophoresis</span>
-    </div>
-    <span style="color:#ffaa33;">streamlines & convergence →</span>
-</div>
-            </div>
-        </section>
+<section id="research">
+            <h2 class="section-title">Research <span>— Published, Submitted & Under Review</span></h2>
+            <div class="card-grid" id="research-cards"></div>
 
         <!-- GALLERY -->
         <section id="gallery">
             <h2 class="section-title">Research <span>environment & simulations</span></h2>
             <div class="gallery-pro">
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&auto=format');">
-                    <div class="overlay"><i class="fas fa-microscope"></i> GPU cluster · CUDA</div>
-                </div>
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=600&auto=format');">
-                    <div class="overlay"><i class="fas fa-wave-square"></i> PINN training (TensorFlow)</div>
-                </div>
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format');">
+                <div class="gallery-item" style="background-image: url('fin1.jpg');">
                     <div class="overlay"><i class="fas fa-fire"></i> Stochastic heat simulation</div>
                 </div>
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format');">
+                <div class="gallery-item" style="background-image: url('book2.jpg');">
+                    <div class="overlay"><i class="fas fa-wave-square"></i> PINN training (TensorFlow)</div>
+                </div>
+                <div class="gallery-item" style="background-image: url('book1.jpg');">
                     <div class="overlay"><i class="fas fa-atom"></i> Uncertainty quantification</div>
+                </div>
+                <div class="gallery-item" style="background-image: url('CertificationPython.jpg');">
+                    <div class="overlay"><i class="fas fa-certificate"></i> Python certification</div>
                 </div>
             </div>
         </section>
 
-        <!-- PROFESSIONAL JOURNEY SECTION -->
-        <section id="journey">
+<section id="future" style="padding: 5rem 8%">
+            <h2 class="section-title">Research Ideas & <span>Future Directions</span></h2>
+            <p style="color: #b0c2da; max-width: 700px; margin: -2rem 0 3rem; font-size: 1.1rem;">The next steps I want to pursue during my PhD, building directly on the methods and results of my current papers.</p>
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-heartbeat" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Biomedical PINN for Clinical UQ</h3>
+                    <p>Extend the eye and coronary papers into real-time, patient-specific uncertainty quantification for intravitreal therapy and stenosis diagnosis in clinical pipelines.</p>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-microchip" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Scalable Neural Operators</h3>
+                    <p>Move beyond single-geometry PINNs to neural operators (DeepONet / Fourier Neural Operator) that generalize across cylinders, channels, and porous media.</p>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-brain" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Bayesian & Probabilistic PINN</h3>
+                    <p>Combine Bayesian layers, adaptive residual learning, and polynomial chaos to separate epistemic and aleatoric uncertainty in thermo-fluid systems.</p>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-wind" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Multiphase Nanofluid Design</h3>
+                    <p>Use the dusty-nanofluid and Jeffrey nanofluid work to design uncertainty-aware, optimized cooling and energy materials for microelectronics and porous reactors.</p>
+                </div>
+            </div>
+        </section>
+
+<section id="ref">
+            <h2 class="section-title">Academic <span>references</span></h2>
+            <div class="ref-grid">
+                <div class="ref-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Dr. Ahmad Zeeshan</h4>
+                    <p>Professor (HEC Supervisor)<br>Dept. of Mathematics & Statistics, IIUI</p>
+                    <p><i class="fas fa-envelope"></i> ahmad.zeeshan@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-astronaut"></i>
+                    <h4>Dr. Muhammad Imran Khan</h4>
+                    <p>Visiting Associate Professor (Co‑supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> muhammad.phdma132@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Dr. Rahmat Ellahi</h4>
+                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> r.ellahi@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-ninja"></i>
+                    <h4>Dr. Nasir Ali</h4>
+                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> nasir.ali@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-check"></i>
+                    <h4>Dr. Nayyar Mehmood</h4>
+                    <p>Professor (Class Teacher)<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> nayyar.mehmood@iiu.edu.pk</p>
+                </div>
+                <div class="ref-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Dr. Amad Ur Rehman</h4>
+                    <p>Visiting Associate Professor<br>IIUI</p>
+                    <p><i class="fas fa-envelope"></i> amad.phdmal31@iiu.edu.pk</p>
+                </div>
+            </div>
+        </section>
+
+<section id="documents" style="padding: 5rem 8%">
+            <h2 class="section-title">Scholarship <span>Documents</span></h2>
+            <p style="color: #b0c2da; max-width: 700px; margin: -2rem 0 3rem; font-size: 1.1rem;">Required application materials available for PhD supervisors and scholarship committees.</p>
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-file-pdf" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Recommendation Letter</h3>
+                    <p style="color: #b0c2da; margin-bottom: 1rem;">Primary supervisor recommendation for PhD applications.</p>
+                    <a href="recommendation-letter-nazim.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-file-pdf" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Recommendation Letters</h3>
+                    <p style="color: #b0c2da; margin-bottom: 1rem;">Additional academic and research recommendation letters.</p>
+                    <a href="recommendations-letters.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-language" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>English Proficiency</h3>
+                    <p style="color: #b0c2da; margin-bottom: 1rem;">English language proficiency letter for international programs.</p>
+                    <a href="english-proficiency-nazim.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                </div>
+                <div class="glass-card" style="cursor: default;">
+                    <i class="fas fa-file-pdf" style="font-size: 2.5rem; color: #ffaa33; margin-bottom: 1.2rem;"></i>
+                    <h3>Curriculum Vitae</h3>
+                    <p style="color: #b0c2da; margin-bottom: 1rem;">Updated CV with publications and research experience.</p>
+                    <a href="Curriculum%20Vitae%20of%20Muhammad_Nazim.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+        </section>
+
+<section id="verified" style="padding: 5rem 8%">
+            <h2 class="section-title">Verified <span>Documents</span></h2>
+            <p style="color: #b0c2da; max-width: 700px; margin: -2rem 0 3rem; font-size: 1.1rem;">Scanned academic records and certificates available for PhD supervisors and scholarship committees.</p>
+            <div class="glass-card" style="cursor: default; text-align: left; padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: #ffaa33;">Download Academic Records</h3>
+                <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; color: #b0c2da;">
+                    <li><a href="doc-matric-certificate.pdf" download style="color: #6cb8ff; font-weight: 600;">Matric Certificate</a></li>
+                    <li><a href="doc-fsc-certificate.pdf" download style="color: #6cb8ff; font-weight: 600;">FSc Certificate</a></li>
+                    <li><a href="doc-hssc-transcript.pdf" download style="color: #6cb8ff; font-weight: 600;">HSSC / FSc Transcript</a></li>
+                    <li><a href="doc-bs-transcript-1.pdf" download style="color: #6cb8ff; font-weight: 600;">BS Transcript (Part 1)</a></li>
+                    <li><a href="doc-bs-transcript-2.pdf" download style="color: #6cb8ff; font-weight: 600;">BS Transcript (Part 2)</a></li>
+                    <li><a href="doc-ms-transcript.pdf" download style="color: #6cb8ff; font-weight: 600;">MS Transcript</a></li>
+                    <li><a href="doc-english-proficiency.pdf" download style="color: #6cb8ff; font-weight: 600;">English Proficiency Letter</a></li>
+                    <li><a href="doc-certificate-1.pdf" download style="color: #6cb8ff; font-weight: 600;">Certificate 1</a></li>
+                    <li><a href="doc-certificate-2.pdf" download style="color: #6cb8ff; font-weight: 600;">Certificate 2</a></li>
+                </ul>
+
+            </div>
+        </section>
+
+<section id="journey">
             <h2 class="section-title">Professional <span>journey & collaborations</span></h2>
             <div class="journey-grid">
                 <div class="journey-card">
@@ -898,8 +942,7 @@
             </div>
         </section>
 
-        <!-- NEW: DeepXDE Library Explorer - scrollable cards -->
-        <section id="library">
+<section id="library">
             <h2 class="section-title">DeepXDE <span>library explorer</span></h2>
             <p style="margin-bottom: 1rem; color: #b0c2da; font-size: 1.2rem;">DeepXDE is a library for scientific machine learning and physics-informed learning. Scroll through the key algorithms and features →</p>
             <div class="library-scroll">
@@ -943,69 +986,6 @@
             <p style="text-align: right; margin-top: 1rem;"><a href="https://deepxde.readthedocs.io/en/latest/" target="_blank" style="color: #ffaa33;">Learn more on DeepXDE docs <i class="fas fa-external-link-alt"></i></a></p>
         </section>
 
-        <!-- REFERENCES -->
-        <section id="ref">
-            <h2 class="section-title">Academic <span>references</span></h2>
-            <div class="ref-grid">
-                <div class="ref-card">
-                    <i class="fas fa-user-tie"></i>
-                    <h4>Dr. Ahmad Zeeshan</h4>
-                    <p>Professor (HEC Supervisor)<br>Dept. of Mathematics & Statistics, IIUI</p>
-                    <p><i class="fas fa-envelope"></i> ahmad.zeeshan@iiu.edu.pk</p>
-                </div>
-                <div class="ref-card">
-                    <i class="fas fa-user-astronaut"></i>
-                    <h4>Dr. Muhammad Imran Khan</h4>
-                    <p>Visiting Associate Professor (Co‑supervisor)<br>IIUI</p>
-                    <p><i class="fas fa-envelope"></i> muhammad.phdma132@iiu.edu.pk</p>
-                </div>
-                <div class="ref-card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h4>Dr. Rahmat Ellahi</h4>
-                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
-                    <p><i class="fas fa-envelope"></i> r.ellahi@iiu.edu.pk</p>
-                </div>
-                <div class="ref-card">
-                    <i class="fas fa-user-ninja"></i>
-                    <h4>Dr. Nasir Ali</h4>
-                    <p>Professor (HEC Approved Supervisor)<br>IIUI</p>
-                    <p><i class="fas fa-envelope"></i> nasir.ali@iiu.edu.pk</p>
-                </div>
-                <div class="ref-card">
-                    <i class="fas fa-user-check"></i>
-                    <h4>Dr. Nayyar Mehmood</h4>
-                    <p>Professor (Class Teacher)<br>IIUI</p>
-                    <p><i class="fas fa-envelope"></i> nayyar.mehmood@iiu.edu.pk</p>
-                </div>
-                <div class="ref-card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h4>Dr. Amad Ur Rehman</h4>
-                    <p>Visiting Associate Professor<br>IIUI</p>
-                    <p><i class="fas fa-envelope"></i> amad.phdmal31@iiu.edu.pk</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 30+ IDEAS -->
-        <section id="future">
-            <h2 class="section-title">Next <span>ideas (30+ concepts)</span></h2>
-            <div class="ideas-pool">
-                <span class="idea-chip">PINN for hypersonic flow</span>
-                <span class="idea-chip">Uncertainty in turbomachinery</span>
-                <span class="idea-chip">Bio‑magnetic fluid control</span>
-                <span class="idea-chip">Neural operators for stochastic PDEs</span>
-                <span class="idea-chip">Multi‑fidelity fusion (MF‑PINN)</span>
-                <span class="idea-chip">Flow stability with eigenvalue PINN</span>
-                <span class="idea-chip">3D printing thermal AI</span>
-                <span class="idea-chip">Real‑time digital twin of arteries</span>
-                <span class="idea-chip">Polynomial chaos + neural nets</span>
-                <span class="idea-chip">Uncertainty in climate models</span>
-                <span class="idea-chip">Physics‑informed DeepONets</span>
-                <span class="idea-chip">Sensitivity analysis of MHD flows</span>
-            </div>
-        </section>
-
-        <!-- CONTACT - updated PhD section -->
         <footer id="contact">
             <h2 style="color: #ffaa33; font-size: 2.8rem;">Seeking PhD Admission 2026</h2>
             <p style="font-size: 1.3rem; margin: 1.5rem auto; max-width:800px;">
@@ -1095,7 +1075,7 @@
     const imagePopup = document.getElementById('imagePopup');
     const popupImg = document.getElementById('popupImg');
 
-    const papers = {
+const papers = {
         'stochastic-heat': {
             title: 'Analysis of Parameter Uncertainty on Stochastic Heat Transfer',
             abstract: 'Uncertainty quantification has become an essential element of the current computational modeling in the domain of thermal and transport sciences. The real world of engineering systems, such as environmental and chemical reactors, biomedical as well as energy systems, are subject to randomness in the input parameters. The parameters flow velocity, rate of reaction, diffusion coefficient, and blood perfusion change because of inaccuracy in measurements, the heterogeneity of materials or physiological changes [1-3]. This variability is intrinsic and conventional deterministic formulations, despite being fundamental, may not embody this variability and thus not describe probabilistic behaviour of physical systems fully under uncertain conditions [4, 5]. As a solution to these shortcomings, modern science has put its efforts into the field of uncertainty quantification (UQ), which involves statistically the characterization of model responses and the increase in predictive quality of simulation-based analysis [6, 7].',
@@ -1210,8 +1190,86 @@
     { url: 'https://techblog.foobot.io/assets/pinn/pinn_solution.gif', desc: 'Temperature field evolution with diffusion effects' },
     { url: 'https://i-ric.org/yasu/nbook_e/_images/vec.gif', desc: 'Streamlines in wavy channel flow (Jeffrey parameter influence)' }
 ]
-}
-    };
+},
+        'porous-media-dusty': {
+            title: 'Physics Informed Deep Learning Based Stochastic Optimization for Thermal Performance of Nonlinear Two-Phase Dusty Nanofluid Flow Dynamics in a Porous Media',
+            abstract: 'This work develops a physics-informed deep learning framework to quantify the stochastic thermal performance of a nonlinear two-phase dusty nanofluid moving through a porous medium. The dusty-nanofluid phase, the carrier liquid phase, and the porous matrix interact through momentum, energy, and concentration coupling. Randomness in the thermo-physical properties, boundary forcing, and particle concentration is propagated into the solution, producing mean fields, variance bands, and confidence intervals for temperature and velocity.',
+            methodology: 'A stochastic PINN is built on a fully-connected neural network with automatic differentiation to enforce the coupled PDE residuals, initial conditions, boundary conditions, and stochastic constraints. The loss function aggregates data, physics, and stochastic regularization terms. Adam and L-BFGS optimizers are combined to reduce the total residual. Brownian motion and thermophoresis effects are embedded in the concentration equation, while the Darcy-Forchheimer porous medium terms are included in the momentum equation.',
+            results: 'The trained S-PINN predicts mean and variance of temperature and velocity with low root-mean-square error. Parametric sensitivity analysis shows that the nanoparticle volume fraction, the magnetic parameter, and the porosity parameter strongly modulate the thermal boundary layer. Uncertainty bands reveal that higher input variance produces broader temperature distributions, an important guideline for the thermal design of porous microfluidic and energy devices.',
+            overviewImg: 'book2.jpg',
+            outcomes: ['First S-PINN study for dusty nanofluid in porous media', 'Quantified thermal boundary layer uncertainty', 'Validates against numerical benchmarks', 'Handling Editor: Dr. Dia Zeidan, Journal of Porous Media'],
+            gifs: [
+                { url: 'book2.jpg', desc: 'Two-phase dusty nanofluid velocity and temperature fields' },
+                { url: 'book1.jpg', desc: 'Stochastic convergence history of total loss' },
+                { url: 'fin1.jpg', desc: 'Temperature uncertainty contour in porous channel' }
+            ]
+        },
+        'intravitreal-drug': {
+            title: 'Bayesian Stochastic Physics-Informed Neural Networks with Adaptive Residual Learning for Uncertainty Quantification of Intravitreal Drug Transport',
+            abstract: 'Intravitreal drug delivery is the primary therapeutic route for many posterior-segment eye diseases, yet the transport of drug molecules through the vitreous is affected by patient-specific variability in liquefaction, permeability, and convective flow. This study proposes a Bayesian stochastic PINN with adaptive residual learning to solve the advection-diffusion-reaction equations of drug transport while propagating uncertainty in the diffusion coefficient, clearance rate, and boundary concentration.',
+            methodology: 'A deep neural network is trained to approximate the drug concentration field as a function of space, time, and stochastic variables. The PDE residual is adaptively weighted so that poorly fitted terms receive higher loss contribution, balancing the competing physics. Bayesian layers produce epistemic uncertainty around the network weights, while input randomness generates aleatory uncertainty. The combined uncertainty is visualized as confidence intervals and probability density functions.',
+            results: 'The model reproduces expected concentration decay and peak times consistent with pharmacokinetic studies. Adaptive residual learning accelerates convergence and reduces the overall mean-squared error. Bayesian confidence intervals capture the spread of possible outcomes under patient-specific variability, supporting safer dosing protocols for intravitreal therapy.',
+            overviewImg: 'book1.jpg',
+            outcomes: ['Patient-specific uncertainty in drug concentration', 'Adaptive residual balancing for PDEs', 'Bayesian epistemic + aleatory uncertainty', 'Submitted at Applied Soft Computing'],
+            gifs: [
+                { url: 'book1.jpg', desc: 'Drug concentration decay with uncertainty bands' },
+                { url: 'book2.jpg', desc: 'Adaptive residual weight evolution during training' },
+                { url: 'fin1.jpg', desc: 'Probability density of peak concentration' }
+            ]
+        },
+        'coronary-stenosis': {
+            title: 'Uncertainty Quantification with Physics-Informed Learning for Diagnosis of Coronary Artery Stenosis',
+            abstract: 'Coronary artery stenosis significantly increases the risk of myocardial infarction and is commonly diagnosed from invasive pressure-flow measurements. This research combines physics-informed neural networks with uncertainty quantification to infer the severity of stenosis from non-invasive or limited clinical data by solving the reduced-order Navier-Stokes equations in a stenosed arterial geometry and treating flow parameters as stochastic.',
+            methodology: 'A PINN surrogate is trained to map the stenosis severity, Reynolds number, and lesion geometry to pressure drop, wall shear stress, and velocity field. The PDE residual enforces mass and momentum conservation, while data loss fits patient-specific measurements. Polynomial Chaos Expansion and Monte Carlo sampling propagate uncertainty in the inferred severity index, producing a distribution rather than a single deterministic diagnosis.',
+            results: 'The model estimates stenosis severity with diagnostic-level accuracy and provides uncertainty bounds that reflect measurement noise and physiological variability. The results demonstrate that physics-informed learning can reduce the need for purely data-driven black-box models and give clinicians interpretable confidence intervals for decision support.',
+            overviewImg: 'book1.jpg',
+            outcomes: ['Non-invasive severity estimation', 'Physics-aware diagnosis with UQ', 'Pressure and wall shear uncertainty', 'Submitted at Biomedical Signal Processing and Control'],
+            gifs: [
+                { url: 'book2.jpg', desc: 'Stenosed artery velocity profile' },
+                { url: 'fin1.jpg', desc: 'Pressure drop uncertainty distribution' },
+                { url: 'book1.jpg', desc: 'Wall shear stress along the lesion' }
+            ]
+        },
+        'ciliary-flagellar': {
+            title: 'Nonlinear Ciliary Flagellar Flow Dynamics and Energy Transport in a Curved Porous Channel: An Optimization via Physics Informed Neural Network',
+            abstract: 'Ciliary and flagellar flows are essential in respiratory clearance, reproductive transport, and microfluidic pumping. This work investigates the nonlinear motion of a Jeffrey fluid driven by ciliary beating inside a curved porous channel. A physics-informed neural network is used to solve the coupled momentum, energy, and concentration equations and to optimize the flow and heat transfer characteristics with respect to the ciliary metachronal wave, channel curvature, and porous medium resistance.',
+            methodology: 'The governing PDEs are transformed into a non-dimensional boundary value problem. A PINN with deep fully-connected layers is trained by minimizing the combined PDE, boundary, and interface losses. The ciliary beating is incorporated through time-dependent wall boundary conditions, and the Jeffrey fluid rheology is introduced via a nonlinear stress-strain relation. Mesh-free automatic differentiation replaces traditional finite difference or finite element discretization.',
+            results: 'The PINN captures the velocity, temperature, and concentration profiles across the curved channel with excellent agreement to benchmark results. The study reveals that increasing the Jeffrey parameter and cilia length enhance the pumping efficiency and the heat transfer rate, while the porous medium reduces the flow rate and thickens the thermal boundary layer.',
+            overviewImg: 'book2.jpg',
+            outcomes: ['Published', 'Ciliary-driven Jeffrey fluid optimization', 'Heat and mass transfer in curved porous channel', 'Mesh-free PINN alternative to CFD'],
+            gifs: [
+                { url: 'book2.jpg', desc: 'Ciliary wave in curved channel' },
+                { url: 'book1.jpg', desc: 'Velocity profile across the channel' },
+                { url: 'fin1.jpg', desc: 'Temperature field with Jeffrey parameter' }
+            ]
+        },
+        'parametric-cylinder': {
+            title: 'Parametric Stochastic Physics-Informed Neural Networks for Uncertainty Quantification of Thermo-Fluid Flow over Cylindrical Surfaces',
+            abstract: 'Flow and heat transfer around cylindrical surfaces appear in heat exchangers, offshore structures, and electronic cooling. This paper develops a parametric stochastic PINN where input parameters such as Reynolds number, Prandtl number, and thermal expansion coefficient are treated as random or design variables, enabling a single trained model to predict thermo-fluid behavior over a continuous parameter range and quantify uncertainty.',
+            methodology: 'The network takes space coordinates and parametric inputs as features and outputs velocity, pressure, and temperature. Automatic differentiation enforces the incompressible Navier-Stokes and energy equations. Stochastic samples are generated using Gaussian and Lognormal distributions, and the network is trained with a composite loss combining PDE residual, boundary, and data terms. The surrogate runs orders of magnitude faster than repeated CFD simulations.',
+            results: 'The parametric S-PINN accurately predicts vortex shedding onset, drag, lift, and Nusselt number across the parametric space. Variance maps show that the near-wake region is most sensitive to inlet velocity uncertainty. The framework supports real-time design and optimization of cylindrical heat-transfer devices.',
+            overviewImg: 'fin1.jpg',
+            outcomes: ['Parametric surrogate for cylinder flow', 'Continuous Reynolds/Prandtl prediction', 'Wake-sensitivity uncertainty maps', 'Under review'],
+            gifs: [
+                { url: 'fin1.jpg', desc: 'Cylinder vorticity field under uncertainty' },
+                { url: 'book2.jpg', desc: 'Drag and lift coefficient distributions' },
+                { url: 'book1.jpg', desc: 'Nusselt number over the cylinder surface' }
+            ]
+        },
+        'uncertainty-aware-thermo': {
+            title: 'Stochastic Physics-Informed Neural Networks for Uncertainty-Aware Prediction of Thermo-Fluid Transport Systems',
+            abstract: 'Thermo-fluid systems in engineering are often subject to uncertain operating conditions, material properties, and boundary data. This study presents a general stochastic physics-informed neural network framework for uncertainty-aware prediction of coupled momentum and energy transport. The methodology is applicable to forced and mixed convection, nanofluids, and porous media.',
+            methodology: 'A unified S-PINN architecture is constructed using fully-connected neural networks with physics and stochastic inputs. The loss function combines PDE residuals, boundary conditions, initial conditions, and stochastic moment constraints. Monte Carlo sampling and polynomial chaos are used to propagate uncertainty. The network is trained using a combination of Adam and L-BFGS to ensure both global and local convergence.',
+            results: 'The framework delivers mean, variance, skewness, and kurtosis of velocity and temperature fields in a single forward pass. Comparisons with Monte Carlo reference solutions show good agreement with significantly reduced computational cost. The results highlight the importance of quantifying higher-order moments for risk assessment in thermal engineering.',
+            overviewImg: 'book1.jpg',
+            outcomes: ['General S-PINN for thermo-fluid UQ', 'Mean and higher-order moments', 'Computational cost reduction vs Monte Carlo', 'Under review'],
+            gifs: [
+                { url: 'book1.jpg', desc: 'Mean temperature field' },
+                { url: 'book2.jpg', desc: 'Variance of velocity magnitude' },
+                { url: 'fin1.jpg', desc: 'Skewness and kurtosis of thermal response' }
+            ]
+        },
+    };;
 
     window.openResearchModal = function(key) {
         const p = papers[key];
@@ -1262,5 +1320,68 @@
         imagePopup.style.display = 'none';
     };
 </script>
+
+    <script>
+        const paperInfo = {
+            'stochastic-heat': {status:'Revision Submitted', journal:'Nonlinear Science', icon:'fire', tags:['PCE','NISP','UQ'], summary:'Stochastic heat transfer uncertainty using NISP and Polynomial Chaos.'},
+            'dusty-flow': {status:'Under Review', journal:'Advanced Theory & Simulations', icon:'wind', tags:['S-PINN','Dusty','Nanofluid'], summary:'S-PINN for radiative two-phase dusty nanofluid flow and uncertainty.'},
+            'inclined-cylinder': {status:'Under Review', journal:'Int. J. Math. & Comp. Sci.', icon:'stream', tags:['S-PINN','Casson','MHD'], summary:'S-PINN for Casson fluid mixed convection over an inclined cylinder.'},
+            'cylinder-flow': {status:'Published', journal:'Colloids and Surfaces A, Vol. 749, 141069', icon:'circle-notch', tags:['S-PINN','L-BFGS','Cylinder'], summary:'L-BFGS optimized S-PINN for stochastic cylinder flow and heat. DOI: 10.1016/j.colsurfa.2026.141069', link:'https://doi.org/10.1016/j.colsurfa.2026.141069'},
+            'hybrid-framework': {status:'Revision Submitted', journal:'Nonlinear Science', icon:'cubes', tags:['UQ','PCE','Monte Carlo'], summary:'Hybrid Monte Carlo + PCE for dynamic relaxation systems.'},
+            'bioheat-pce': {status:'Under Review', journal:'—', icon:'heartbeat', tags:['PCE','Bioheat','NISP'], summary:'Non-intrusive PCE for stochastic Pennes bioheat equation.'},
+            'fins-cylinder-uq': {status:'Submitted', journal:'Case Studies in Thermal Eng.', icon:'temperature-high', tags:['UQ','NISP','ANN'], summary:'Hybrid NISP-ANN surrogate for fins and cylinder convection.'},
+            'pinn-jeffrey-nanofluid': {status:'Book Chapter', journal:'Nanoparticles', icon:'wave-square', tags:['PINN','MHD','Jeffrey'], summary:'PINN for MHD Jeffrey nanofluid in a sinusoidal channel.'},
+            'porous-media-dusty': {status:'TOP PRIORITY', journal:'Journal of Porous Media', icon:'crown', tags:['PINN','Porous','UQ'], summary:'Physics-informed deep learning for dusty nanofluid in porous media. Handling Editor: Dr. Dia Zeidan.'},
+            'intravitreal-drug': {status:'Submitted', journal:'Applied Soft Computing', icon:'eye', tags:['Bayesian','S-PINN','UQ'], summary:'Bayesian S-PINN for uncertainty-aware intravitreal drug transport.'},
+            'coronary-stenosis': {status:'Submitted', journal:'Biomed. Signal Proc. & Ctrl.', icon:'heartbeat', tags:['PINN','Cardio','UQ'], summary:'UQ with PINN for diagnosis of coronary artery stenosis.'},
+            'ciliary-flagellar': {status:'Published', journal:'Computational Biology and Chemistry, Vol. 89, 109342', icon:'water', tags:['PINN','Cilia','Porous'], summary:'PINN optimization of ciliary flagellar flow in a curved porous channel. DOI: 10.1016/j.compbiolchem.2026.109342', link:'https://doi.org/10.1016/j.compbiolchem.2026.109342'},
+            'parametric-cylinder': {status:'Under Review', journal:'—', icon:'circle-notch', tags:['S-PINN','Cylinder','UQ'], summary:'Parametric S-PINN for thermo-fluid UQ over cylindrical surfaces.'},
+            'uncertainty-aware-thermo': {status:'Under Review', journal:'—', icon:'wind', tags:['S-PINN','UQ','Thermo-fluid'], summary:'S-PINN for uncertainty-aware thermo-fluid transport prediction.'}
+        };
+
+        function renderCards() {
+            const grid = document.getElementById('research-cards');
+            ['cylinder-flow','ciliary-flagellar','porous-media-dusty','intravitreal-drug','coronary-stenosis','fins-cylinder-uq','dusty-flow','inclined-cylinder','bioheat-pce','stochastic-heat','hybrid-framework','parametric-cylinder','uncertainty-aware-thermo','pinn-jeffrey-nanofluid'].forEach((key, i) => {
+                const p = papers[key];
+                const info = paperInfo[key] || {status:'Manuscript', journal:'', icon:'flask', tags:[], summary:''};
+                const isTop = info.status === 'TOP PRIORITY';
+                const card = document.createElement('div');
+                card.className = 'glass-card' + (isTop ? ' top-priority' : '');
+                card.style.animationDelay = (i * 0.12) + 's';
+                card.onclick = () => openResearchModal(key);
+                const statusColor = info.status === 'Published' ? '#22c55e' : (info.status === 'Submitted' ? '#3b82f6' : (info.status === 'TOP PRIORITY' ? '#f6ad34' : '#f59e0b'));
+                card.innerHTML = `
+                    <i class="fas fa-${info.icon}"></i>
+                    <h3>${p.title}</h3>
+                    <div class="pub-meta" style="color:${statusColor};font-weight:700">${info.status}${info.journal ? ' · ' + info.journal : ''}</div>
+                    <p>${info.summary}</p>
+                    <div class="tag-list">${info.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                    ${info.link ? `<a href="${info.link}" target="_blank" onclick="event.stopPropagation();" style="display:inline-block;color:#22c55e;font-weight:700;margin-top:1rem;"><i class="fas fa-external-link-alt"></i> Open Article</a>` : ''}
+                    <span style="display:block;color:#ffaa33;margin-top:0.6rem;">${isTop ? 'view priority paper →' : 'view details →'}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.addEventListener('load', renderCards);
+    </script>
+
+
+    <!-- Google Analytics -->
+    <script>
+        const GA_ID = "G-TVDRV7BB76";
+        if(GA_ID){
+            const s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+            gtag("config", GA_ID);
+            const pr = new URLSearchParams(window.location.search).get("prof");
+            if(pr) gtag("event","professor_visit",{"professor_name": pr});
+        }
+    </script>
 </body>
 </html>
